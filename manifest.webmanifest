@@ -1,0 +1,9 @@
+{
+  "name": "Lingua Cards",
+  "short_name": "Lingua Cards",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ed",
+  "theme_color": "#f7f4ed",
+  "description": "Offline-first multilingual flashcards with local storage"
+}

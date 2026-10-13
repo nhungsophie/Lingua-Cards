@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f4ed">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lingua Cards">
+<title>Lingua Cards</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#f7f4ed;--card:#fffefa;--ink:#202b36;--muted:#66717d;--line:#e6e0d5;--accent:#285d52;--soft:#e7f0eb;--red:#a63d40;--amber:#8a5a12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 16px calc(18px + env(safe-area-inset-bottom));}
+header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;margin:0}header small{color:var(--muted)}main{max-width:760px;margin:auto}.tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}.tab,button,.file-label{border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14px;background:var(--card);color:var(--ink);font-weight:650;cursor:pointer}.tab.active,.primary{background:var(--accent);color:white;border-color:var(--accent)}.panel{display:none}.panel.active{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:6px 0 16px}.stat,.card,.section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}.card{cursor:pointer;min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;margin-bottom:12px}.eyebrow{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.front{font-size:30px;font-weight:750;line-height:1.3;overflow-wrap:anywhere;margin:18px 0}.back{font-size:20px;animation:cardReveal .18s ease-out;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}@keyframes cardReveal{from{opacity:.35;transform:rotateY(12deg) translateY(3px)}to{opacity:1;transform:rotateY(0) translateY(0)}}
+.example{font-size:15px;color:var(--muted);white-space:pre-wrap;margin-top:12px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.actions button{padding:13px 3px}.actions small{display:block;font-size:11px;font-weight:500;margin-top:4px}.again{border-color:#e6b7b7;color:var(--red)}.hard{border-color:#e7cf9e;color:var(--amber)}.good{border-color:#b7d6c8;color:var(--accent)}.easy{border-color:#b9c9e8;color:#2b5591}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.section{margin-bottom:12px}.section h2{font-size:17px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px;line-height:1.45}input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit;color:var(--ink);margin:5px 0 10px}textarea{min-height:85px;resize:vertical}label{font-size:13px;font-weight:650;display:block}.list{display:flex;flex-direction:column;gap:8px}.deck{border:1px solid var(--line);border-radius:14px;padding:12px;background:white;display:flex;justify-content:space-between;gap:12px}.deck strong{display:block}.deck small{color:var(--muted)}.notice{background:var(--soft);border-radius:12px;padding:12px;font-size:13px;line-height:1.45;margin:10px 0}.danger{background:#f9e9e8}.hidden{display:none!important}.file-label{display:inline-block;text-align:center}.footer{font-size:11px;color:var(--muted);text-align:center;padding:18px 0}progress{width:100%;height:7px}a{color:var(--accent)}@media(min-width:600px){.front{font-size:38px}.card{min-height:320px}}
+</style>
+</head>
+<body>
+<header><div><h1>Lingua Cards</h1><small>Offline-first flashcards</small></div><button id="speakTop" title="Speak current card">🔊</button></header>
+<main>
+<nav class="tabs">
+<button class="tab active" data-tab="study">Study</button><button class="tab" data-tab="decks">Decks</button><button class="tab" data-tab="import">Import</button><button class="tab" data-tab="backup">Backup</button>
+</nav>
+<section class="panel active" id="study">
+<div class="stats"><div class="stat"><strong id="dueCount">0</strong><span>Due now</span></div><div class="stat"><strong id="newCount">0</strong><span>New cards</span></div><div class="stat"><strong id="doneCount">0</strong><span>Reviewed today</span></div></div>
+<div class="row" style="margin-bottom:10px"><select id="studyDeck"><option value="all">All decks</option></select><button id="shuffleBtn">Shuffle new</button></div>
+<div class="card" id="flashcard"><div class="eyebrow" id="cardDeck">Ready to study</div><div class="front" id="front">Import a CSV deck or try the sample cards.</div><div class="back hidden" id="back"></div><div class="example hidden" id="example"></div><button id="revealBtn" class="primary" style="margin-top:18px">Show answer</button></div>
+<div class="actions hidden" id="ratings">
+<button class="again" data-grade="1">Again<small id="againTime">relearn</small></button><button class="hard" data-grade="2">Hard<small id="hardTime">short</small></button><button class="good" data-grade="3">Good<small id="goodTime">normal</small></button><button class="easy" data-grade="4">Easy<small id="easyTime">long</small></button>
+</div><p class="muted" id="studyHint">The official ts-fsrs scheduler (v5.4.2) calculates review intervals. Cards and progress are stored in this browser on this iPhone. Export a backup before clearing browser data.</p>
+</section>
+<section class="panel" id="decks">
+<div class="section"><h2>Create a deck</h2><label>Deck name</label><input id="deckName" placeholder="e.g. English B1, Japanese N2"><button class="primary" id="createDeck">Create deck</button></div>
+<div class="section"><h2>Your decks</h2><div id="deckList" class="list"></div></div>
+<div class="section"><h2>Add a single card</h2><label>Deck</label><select id="addDeck"></select><label>Front</label><textarea id="newFront" placeholder="Word, phrase, question…"></textarea><label>Back / meaning</label><textarea id="newBack" placeholder="Meaning, explanation…"></textarea><label>Reading / example (optional)</label><textarea id="newExample" placeholder="Pronunciation, example sentence and translation…"></textarea><label>Language code for speech (optional)</label><input id="newLang" placeholder="en-US, ja-JP, vi-VN…"><button class="primary" id="addCard">Add card</button></div>
+</section>
+<section class="panel" id="import">
+<div class="section"><h2>Import CSV / TSV</h2><p class="muted">Prepare a CSV file in Excel or Numbers, export it as CSV UTF-8, then select it here. TSV (tab-separated) is also supported. The first row should contain headers.</p>
+<div class="notice"><strong>Recommended columns:</strong><br>deck, front, back, example, language, tags<br><br>Required: <code>front</code> and <code>back</code>. Column names are case-insensitive. If <code>deck</code> is missing, cards go into “Imported”.</div>
+<label class="file-label">Choose CSV / TSV file<input id="csvFile" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values" style="display:none"></label>
+<p id="importStatus" class="muted">No file selected.</p><button id="downloadTemplate">Download sample CSV</button>
+</div>
+<div class="section"><h2>Import notes</h2><p class="muted">The importer handles quoted CSV cells and commas inside quoted fields. Excel workbook (.xlsx) files are not parsed directly in this MVP: export the sheet as CSV UTF-8 first.</p></div>
+</section>
+<section class="panel" id="backup">
+<div class="section"><h2>Back up your data</h2><p class="muted">Export a JSON backup containing decks, cards, scheduling state and review history. Save it in Files or another location you control.</p><button class="primary" id="exportBackup">Export JSON backup</button></div>
+<div class="section"><h2>Restore a backup</h2><label class="file-label">Choose JSON backup<input id="backupFile" type="file" accept=".json,application/json" style="display:none"></label><p class="muted" id="restoreStatus">Restoring replaces the current app data. Export a backup first.</p><button id="restoreBtn" class="danger">Restore selected backup</button></div>
+<div class="section"><h2>Storage and privacy</h2><p class="muted">No account or app server is used. Data lives in this browser's local IndexedDB storage. Browser data can still be removed by iOS or by the user; this is not the same as an encrypted device backup. Export backups regularly.</p><button id="clearData" class="danger">Delete all local data</button></div>
+</section>
+<div class="footer">Lingua Cards MVP · Local storage · No account required</div>
+</main>
+<script type="module">
+import { createEmptyCard, fsrs, Rating, State } from "https://esm.sh/ts-fsrs@5.4.2?bundle";
+const scheduler = fsrs({ request_retention: 0.9, enable_fuzz: true });
+const DB_NAME='lingua_cards_db', DB_VERSION=1;
+let db, currentCard=null, revealed=false, selectedCsv=null, selectedBackup=null, shuffleNew=false;
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const uuid=()=>crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(16).slice(2);
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;d.createObjectStore('decks',{keyPath:'id'});d.createObjectStore('cards',{keyPath:'id'});d.createObjectStore('reviews',{keyPath:'id'});d.createObjectStore('meta',{keyPath:'key'});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store)}
+function all(store){return new Promise((resolve,reject)=>{const r=tx(store).getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function put(store,obj){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').put(obj);r.onsuccess=()=>resolve(obj);r.onerror=()=>reject(r.error);});}
+function clearStore(store){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').clear();r.onsuccess=resolve;r.onerror=()=>reject(r.error);});}
+function del(store,id){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').delete(id);r.onsuccess=resolve;r.onerror=()=>reject(r.error);});}
+async function seed(){const decks=await all('decks');if(decks.length)return;const d={id:uuid(),name:'Sample English',createdAt:Date.now()};await put('decks',d);for(const c of [
+{front:'to figure out',back:'to understand or solve something',example:'I need to figure out how this app works.',language:'en-US',tags:'English,phrasal verbs'},
+{front:'気になる（きになる）',back:'to be curious about; to bother or concern someone',example:'この言葉の意味が気になります。\\nI’m curious about the meaning of this word.',language:'ja-JP',tags:'Japanese,vocabulary'},
+{front:'consistent',back:'happening in the same way over time; steady',example:'A consistent study routine helps you remember words.',language:'en-US',tags:'English,adjective'}
+]){const createdAt=Date.now();await put('cards',{id:uuid(),deckId:d.id,...c,createdAt,due:createdAt,new:true,fsrsCard:createEmptyCard(new Date(createdAt)),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});}}
+async function refresh(){const [decks,cards,reviews]=await Promise.all([all('decks'),all('cards'),all('reviews')]);const todayReviews=reviews.filter(r=>new Date(r.at).toISOString().slice(0,10)===today()).length;$('dueCount').textContent=cards.filter(c=>getDueMs(c)<=Date.now()).length;$('newCount').textContent=cards.filter(c=>c.new).length;$('doneCount').textContent=todayReviews;fillDeckSelects(decks);renderDecks(decks,cards);await nextCard();}
+function fillDeckSelects(decks){for(const id of ['studyDeck','addDeck']){const sel=$(id),old=sel.value;sel.innerHTML=id==='studyDeck'?'<option value="all">All decks</option>':'';decks.forEach(d=>{const o=document.createElement('option');o.value=d.id;o.textContent=d.name;sel.append(o)});if([...sel.options].some(o=>o.value===old))sel.value=old;}}
+function renderDecks(decks,cards){const list=$('deckList');list.innerHTML='';if(!decks.length){list.textContent='No decks yet.';return;}decks.forEach(d=>{const count=cards.filter(c=>c.deckId===d.id).length;const el=document.createElement('div');el.className='deck';const info=document.createElement('div');info.innerHTML='<strong></strong><small></small>';info.firstChild.textContent=d.name;info.lastChild.textContent=count+' cards';const btn=document.createElement('button');btn.textContent='Delete';btn.onclick=async()=>{if(!confirm('Delete deck and all its cards?'))return;for(const c of cards.filter(c=>c.deckId===d.id))await del('cards',c.id);await del('decks',d.id);await refresh();};el.append(info,btn);list.append(el);});}
+function hydrateFsrsCard(raw, createdAt=Date.now()){
+ if(!raw) return createEmptyCard(new Date(createdAt));
+ const c={...raw};
+ if(c.due && !(c.due instanceof Date)) c.due=new Date(c.due);
+ if(c.last_review && !(c.last_review instanceof Date)) c.last_review=new Date(c.last_review);
+ return c;
+}
+function getDueMs(c){
+ const f=c.fsrsCard;
+ if(f&&f.due) return new Date(f.due).getTime();
+ return Number(c.due||0);
+}
+function intervalLabel(due, now=Date.now()){
+ const mins=Math.max(0,Math.round((new Date(due).getTime()-now)/60000));
+ if(mins<60)return Math.max(1,mins)+'m';
+ if(mins<1440)return Math.round(mins/60)+'h';
+ const days=mins/1440;
+ if(days<30)return Math.max(1,Math.round(days))+'d';
+ return Math.round(days/30)+'mo';
+}
+async function nextCard(){const cards=await all('cards');const deck=$('studyDeck').value;let pool=cards.filter(c=>(deck==='all'||c.deckId===deck)&&getDueMs(c)<=Date.now());if(!pool.length)pool=cards.filter(c=>(deck==='all'||c.deckId===deck)&&c.new);if(shuffleNew)pool.sort(()=>Math.random()-.5);else pool.sort((a,b)=>getDueMs(a)-getDueMs(b)||Number(b.new)-Number(a.new));currentCard=pool[0]||null;revealed=false;$('front').classList.remove('hidden');$('back').classList.add('hidden');$('example').classList.add('hidden');$('ratings').classList.add('hidden');$('revealBtn').classList.remove('hidden');if(!currentCard){$('cardDeck').textContent='Session complete';$('front').textContent='No cards due right now 🎉';$('back').textContent='Import more cards or come back later.';$('revealBtn').textContent='Done';$('revealBtn').disabled=true;return;}const decks=await all('decks');$('cardDeck').textContent=(decks.find(d=>d.id===currentCard.deckId)?.name||'Deck')+' · '+(currentCard.new?'New':'Review');$('front').textContent=currentCard.front;$('back').textContent=currentCard.back;$('example').textContent=currentCard.example||'';$('revealBtn').textContent='Show answer';$('revealBtn').disabled=false;const interval=previewIntervals(currentCard);$('againTime').textContent=interval[1];$('hardTime').textContent=interval[2];$('goodTime').textContent=interval[3];$('easyTime').textContent=interval[4];}
+function previewIntervals(c){
+ try{
+  const now=new Date();
+  const state=hydrateFsrsCard(c.fsrsCard,c.createdAt);
+  const preview=scheduler.repeat(state,now);
+  return [0,intervalLabel(preview[Rating.Again].card.due,now),intervalLabel(preview[Rating.Hard].card.due,now),intervalLabel(preview[Rating.Good].card.due,now),intervalLabel(preview[Rating.Easy].card.due,now)];
+ }catch(e){return [0,'again','hard','good','easy'];}
+}
+function fmt(d){if(d<1)return Math.max(1,Math.round(d*24*60))+'m';if(d<30)return Math.round(d)+'d';return Math.round(d/30)+'mo';}
+function toggleAnswer(){
+ if(!currentCard)return;
+ if(!revealed){
+  revealed=true;
+  $('front').classList.add('hidden');
+  $('back').classList.remove('hidden');
+  if(currentCard.example){$('example').classList.remove('hidden');}
+  $('ratings').classList.remove('hidden');
+  $('revealBtn').textContent='Show question';
+  $('revealBtn').classList.remove('hidden');
+ }else{
+  revealed=false;
+  $('front').classList.remove('hidden');
+  $('back').classList.add('hidden');
+  $('example').classList.add('hidden');
+  $('ratings').classList.add('hidden');
+  $('revealBtn').textContent='Show answer';
+ }
+}
+$('revealBtn').onclick=(event)=>{event.stopPropagation();toggleAnswer();};
+// Let the user tap the card itself to reveal the answer or return to the question.
+$('flashcard').onclick=(event)=>{if(event.target.closest('button'))return;toggleAnswer();};
+function speak(){if(!currentCard)return;const text=currentCard.front||'';if(!('speechSynthesis'in window)){alert('Speech synthesis is not supported in this browser.');return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=currentCard.language||guessLang(text);speechSynthesis.speak(u);}
+function guessLang(s){return /[\u3040-\u30ff\u4e00-\u9faf]/.test(s)?'ja-JP':/[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i.test(s)?'vi-VN':'en-US';}
+$('speakTop').onclick=speak;
+async function grade(g){
+ if(!currentCard||!revealed)return;
+ const c={...currentCard};
+ const now=new Date();
+ const fsrsCard=hydrateFsrsCard(c.fsrsCard,c.createdAt);
+ const rating=({1:Rating.Again,2:Rating.Hard,3:Rating.Good,4:Rating.Easy})[g];
+ try{
+  const result=scheduler.next(fsrsCard,now,rating);
+  const updated=result.card;
+  c.fsrsCard=updated;
+  c.due=new Date(updated.due).getTime();
+  c.new=updated.state===State.New;
+  c.stability=updated.stability;
+  c.difficulty=updated.difficulty;
+  c.reps=updated.reps;
+  c.lapses=updated.lapses;
+  c.lastReview=updated.last_review?new Date(updated.last_review).getTime():null;
+  await put('cards',c);
+  const safeLog={...result.log,due:new Date(result.log.due).getTime(),review:new Date(result.log.review).getTime()};
+  await put('reviews',{id:uuid(),cardId:c.id,grade:g,at:now.getTime(),due:new Date(updated.due).getTime(),stability:updated.stability,difficulty:updated.difficulty,state:updated.state,scheduledDays:updated.scheduled_days,elapsedDays:updated.elapsed_days,reviewLog:safeLog});
+  await refresh();
+ }catch(e){
+  console.error('FSRS scheduling failed',e);
+  alert('FSRS could not schedule this card: '+e.message);
+ }
+}
+document.querySelectorAll('[data-grade]').forEach(b=>b.onclick=()=>grade(Number(b.dataset.grade)));
+$('studyDeck').onchange=nextCard;$('shuffleBtn').onclick=()=>{shuffleNew=!shuffleNew;$('shuffleBtn').textContent=shuffleNew?'Shuffle: on':'Shuffle new';nextCard();};
+$('createDeck').onclick=async()=>{const name=$('deckName').value.trim();if(!name)return alert('Enter a deck name.');await put('decks',{id:uuid(),name,createdAt:Date.now()});$('deckName').value='';await refresh();};
+$('addCard').onclick=async()=>{const front=$('newFront').value.trim(),back=$('newBack').value.trim();if(!front||!back)return alert('Front and back are required.');await put('cards',{id:uuid(),deckId:$('addDeck').value,front,back,example:$('newExample').value.trim(),language:$('newLang').value.trim()||guessLang(front),tags:'',createdAt:Date.now(),due:Date.now(),new:true,fsrsCard:createEmptyCard(new Date()),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});$('newFront').value='';$('newBack').value='';$('newExample').value='';$('newLang').value='';await refresh();alert('Card added.');};
+function parseDelimited(text,delimiter){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const ch=text[i];if(ch==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(ch===delimiter&&!quoted){row.push(cell);cell='';}else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell='';}else cell+=ch;}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows;}
+$('csvFile').onchange=e=>{selectedCsv=e.target.files[0];$('importStatus').textContent=selectedCsv?selectedCsv.name+' selected.':'No file selected.';};
+$('import').querySelector('.file-label').onclick=()=>{};
+function normalizeFrontForDuplicateCheck(value){return String(value||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase();}
+async function importCsv(){
+ if(!selectedCsv)return alert('Choose a CSV or TSV file first.');
+ const txt=(await selectedCsv.text()).replace(/^\uFEFF/,'');
+ const delim=selectedCsv.name.toLowerCase().endsWith('.tsv')?'\t':(txt.split('\n')[0].includes('\t')?'\t':',');
+ const rows=parseDelimited(txt,delim);
+ if(rows.length<2)return alert('File needs a header row and at least one card.');
+ const headers=rows[0].map(x=>x.trim().toLowerCase().replace(/[\s-]+/g,'_'));
+ const idx=(...names)=>headers.findIndex(h=>names.includes(h));
+ const fi=idx('front','question','term','word','expression');
+ const bi=idx('back','answer','meaning','definition','translation');
+ if(fi<0||bi<0)return alert('Could not find required front and back columns.');
+ let count=0, skipped=0;
+ let decks=await all('decks');
+ const knownCards=await all('cards');
+ // A card is considered a duplicate when its normalized front already exists in the same deck.
+ // Existing cards are never overwritten, so their FSRS state and review history stay intact.
+ const seen=new Set(knownCards.map(c=>c.deckId+'::'+normalizeFrontForDuplicateCheck(c.front)));
+ for(const r of rows.slice(1)){
+  const front=(r[fi]||'').trim(),back=(r[bi]||'').trim();
+  if(!front||!back)continue;
+  const deckName=(r[idx('deck','deck_name')]||'Imported').trim()||'Imported';
+  let deck=decks.find(d=>d.name.toLowerCase()===deckName.toLowerCase());
+  if(!deck){deck={id:uuid(),name:deckName,createdAt:Date.now()};await put('decks',deck);decks.push(deck);}
+  const duplicateKey=deck.id+'::'+normalizeFrontForDuplicateCheck(front);
+  if(seen.has(duplicateKey)){skipped++;continue;}
+  const createdAt=Date.now();
+  await put('cards',{id:uuid(),deckId:deck.id,front,back,example:(r[idx('example','notes','reading','furigana')]||'').trim(),language:(r[idx('language','lang','language_code')]||guessLang(front)).trim(),tags:(r[idx('tags','tag')]||'').trim(),createdAt,due:createdAt,new:true,fsrsCard:createEmptyCard(new Date(createdAt)),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});
+  seen.add(duplicateKey);count++;
+ }
+ await refresh();
+ $('importStatus').textContent='Imported '+count+' new cards; skipped '+skipped+' duplicate cards.';
+ alert('Imported '+count+' new cards. Skipped '+skipped+' duplicate cards. Existing cards and their FSRS progress were not changed.');
+}
+const importButton=document.createElement('button');importButton.className='primary';importButton.textContent='Import selected file';importButton.onclick=importCsv;$('import').querySelector('.section').append(importButton);
+$('downloadTemplate').onclick=()=>{const csv=[
+'deck,front,back,example,language,tags',
+'English B1,"to figure out","to understand or solve something","I figured it out.","en-US","phrasal verbs"',
+'Japanese N2,"気になる","to be curious about","この言葉が気になります。","ja-JP","vocabulary"'
+].join('\\n')+'\\n';download('sample-cards.csv',csv,'text/csv;charset=utf-8');};
+function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('exportBackup').onclick=async()=>{const payload={app:'Lingua Cards',schemaVersion:1,exportedAt:new Date().toISOString(),decks:await all('decks'),cards:await all('cards'),reviews:await all('reviews')};download('lingua-cards-backup-'+today()+'.json',JSON.stringify(payload,null,2),'application/json');};
+$('backupFile').onchange=e=>{selectedBackup=e.target.files[0];$('restoreStatus').textContent=selectedBackup?selectedBackup.name+' selected. Restore will replace current data.':'No backup selected.';};
+$('restoreBtn').onclick=async()=>{if(!selectedBackup)return alert('Choose a JSON backup first.');if(!confirm('Replace all current decks, cards and review history with this backup?'))return;try{const p=JSON.parse(await selectedBackup.text());if(!Array.isArray(p.decks)||!Array.isArray(p.cards)||!Array.isArray(p.reviews))throw Error('Invalid backup format');for(const s of ['decks','cards','reviews'])await clearStore(s);for(const x of p.decks)await put('decks',x);for(const x of p.cards)await put('cards',x);for(const x of p.reviews)await put('reviews',x);await refresh();alert('Backup restored.');}catch(e){alert('Could not restore backup: '+e.message);}};
+$('clearData').onclick=async()=>{if(!confirm('Permanently delete all local decks, cards and review history? Export a backup first.'))return;for(const s of ['decks','cards','reviews','meta'])await clearStore(s);await seed();await refresh();alert('Local data deleted and sample cards re-created.');};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));});
+(async()=>{try{db=await openDB();await seed();await refresh();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});}catch(e){$('front').textContent='Storage could not start: '+e.message;}})();
+</script>
+</body></html>
