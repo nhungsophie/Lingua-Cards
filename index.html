@@ -12,7 +12,7 @@
 <style>
 :root{--bg:#f7f4ed;--card:#fffefa;--ink:#202b36;--muted:#66717d;--line:#e6e0d5;--accent:#285d52;--soft:#e7f0eb;--red:#a63d40;--amber:#8a5a12}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 16px calc(18px + env(safe-area-inset-bottom));}
-header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;margin:0}header small{color:var(--muted)}main{max-width:760px;margin:auto}.tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}.tab,button,.file-label{border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14px;background:var(--card);color:var(--ink);font-weight:650;cursor:pointer}.tab.active,.primary{background:var(--accent);color:white;border-color:var(--accent)}.panel{display:none}.panel.active{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:6px 0 16px}.stat,.card,.section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}.card{cursor:pointer;min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;margin-bottom:12px}.eyebrow{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.front{font-size:30px;font-weight:750;line-height:1.3;overflow-wrap:anywhere;margin:18px 0}.back{font-size:20px;animation:cardReveal .18s ease-out;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}@keyframes cardReveal{from{opacity:.35;transform:rotateY(12deg) translateY(3px)}to{opacity:1;transform:rotateY(0) translateY(0)}}
+header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;margin:0}header small{color:var(--muted)}main{max-width:760px;margin:auto}.tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}.tab,button,.file-label{border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14px;background:var(--card);color:var(--ink);font-weight:650;cursor:pointer}.tab.active,.primary{background:var(--accent);color:white;border-color:var(--accent)}button:disabled{opacity:.55;cursor:wait}.panel{display:none}.panel.active{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:6px 0 16px}.stat,.card,.section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}.card{cursor:pointer;min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;margin-bottom:12px}.eyebrow{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.front{font-size:30px;font-weight:750;line-height:1.3;overflow-wrap:anywhere;margin:18px 0}.back{font-size:20px;animation:cardReveal .18s ease-out;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}@keyframes cardReveal{from{opacity:.35;transform:rotateY(12deg) translateY(3px)}to{opacity:1;transform:rotateY(0) translateY(0)}}
 .example{font-size:15px;color:var(--muted);white-space:pre-wrap;margin-top:12px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.actions button{padding:13px 3px}.actions small{display:block;font-size:11px;font-weight:500;margin-top:4px}.again{border-color:#e6b7b7;color:var(--red)}.hard{border-color:#e7cf9e;color:var(--amber)}.good{border-color:#b7d6c8;color:var(--accent)}.easy{border-color:#b9c9e8;color:#2b5591}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.section{margin-bottom:12px}.section h2{font-size:17px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px;line-height:1.45}input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit;color:var(--ink);margin:5px 0 10px}textarea{min-height:85px;resize:vertical}label{font-size:13px;font-weight:650;display:block}.list{display:flex;flex-direction:column;gap:8px}.deck{border:1px solid var(--line);border-radius:14px;padding:12px;background:white;display:flex;justify-content:space-between;gap:12px}.deck strong{display:block}.deck small{color:var(--muted)}.notice{background:var(--soft);border-radius:12px;padding:12px;font-size:13px;line-height:1.45;margin:10px 0}.danger{background:#f9e9e8}.hidden{display:none!important}.file-label{display:inline-block;text-align:center}.footer{font-size:11px;color:var(--muted);text-align:center;padding:18px 0}progress{width:100%;height:7px}a{color:var(--accent)}@media(min-width:600px){.front{font-size:38px}.card{min-height:320px}}
 </style>
 </head>
@@ -20,7 +20,7 @@ header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-co
 <header><div><h1>Lingua Cards</h1><small>Offline-first flashcards</small></div><button id="speakTop" title="Speak current card">🔊</button></header>
 <main>
 <nav class="tabs">
-<button class="tab active" data-tab="study">Study</button><button class="tab" data-tab="decks">Decks</button><button class="tab" data-tab="import">Import</button><button class="tab" data-tab="backup">Backup</button>
+<button class="tab active" data-tab="study">Study</button><button class="tab" data-tab="decks">Decks</button><button class="tab" data-tab="import">Import</button><button class="tab" data-tab="settings">FSRS</button><button class="tab" data-tab="backup">Backup</button>
 </nav>
 <section class="panel active" id="study">
 <div class="stats"><div class="stat"><strong id="dueCount">0</strong><span>Due now</span></div><div class="stat"><strong id="newCount">0</strong><span>New cards</span></div><div class="stat"><strong id="doneCount">0</strong><span>Reviewed today</span></div></div>
@@ -43,6 +43,14 @@ header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-co
 </div>
 <div class="section"><h2>Import notes</h2><p class="muted">The importer handles quoted CSV cells and commas inside quoted fields. Excel workbook (.xlsx) files are not parsed directly in this MVP: export the sheet as CSV UTF-8 first.</p></div>
 </section>
+<section class="panel" id="settings">
+<div class="section"><h2>FSRS parameter optimization</h2>
+<p class="muted">Optimize the FSRS memory model using your own review history. Optimization runs in this browser; your cards and review logs are not uploaded. For a useful result, build up a few hundred reviews first.</p>
+<div class="notice" id="fsrsStatus" role="status" aria-live="polite">Checking review history and optimizer readiness…</div>
+<div class="row"><button class="primary" id="optimizeFSRS">Optimize FSRS parameters</button><button id="resetFSRS">Use default parameters</button></div>
+<p class="muted">Optimizing changes the parameters used for future scheduling. Existing due dates are left as they are, so your queue will not suddenly change. You can restore the default parameters at any time.</p>
+</div>
+</section>
 <section class="panel" id="backup">
 <div class="section"><h2>Back up your data</h2><p class="muted">Export a JSON backup containing decks, cards, scheduling state and review history. Save it in Files or another location you control.</p><button class="primary" id="exportBackup">Export JSON backup</button></div>
 <div class="section"><h2>Restore a backup</h2><label class="file-label">Choose JSON backup<input id="backupFile" type="file" accept=".json,application/json" style="display:none"></label><p class="muted" id="restoreStatus">Restoring replaces the current app data. Export a backup first.</p><button id="restoreBtn" class="danger">Restore selected backup</button></div>
@@ -52,24 +60,73 @@ header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-co
 </main>
 <script type="module">
 import { createEmptyCard, fsrs, Rating, State } from "https://esm.sh/ts-fsrs@5.4.2?bundle";
-const scheduler = fsrs({ request_retention: 0.9, enable_fuzz: true });
+const SCHEDULER_OPTIONS = { request_retention: 0.9, enable_fuzz: true, enable_short_term: true, learning_steps: ['1m','10m'], relearning_steps: ['10m'] };
+let scheduler = fsrs(SCHEDULER_OPTIONS);
+const OPTIMIZER_VERSION = '6.6.0';
+const MIN_OPTIMIZATION_REVIEWS = 200;
 const DB_NAME='lingua_cards_db', DB_VERSION=1;
 let db, currentCard=null, revealed=false, selectedCsv=null, selectedBackup=null, shuffleNew=false;
 const $=id=>document.getElementById(id);
 const today=()=>new Date().toISOString().slice(0,10);
 const uuid=()=>crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(16).slice(2);
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;d.createObjectStore('decks',{keyPath:'id'});d.createObjectStore('cards',{keyPath:'id'});d.createObjectStore('reviews',{keyPath:'id'});d.createObjectStore('meta',{keyPath:'key'});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store)}
-function all(store){return new Promise((resolve,reject)=>{const r=tx(store).getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
-function put(store,obj){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').put(obj);r.onsuccess=()=>resolve(obj);r.onerror=()=>reject(r.error);});}
-function clearStore(store){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').clear();r.onsuccess=resolve;r.onerror=()=>reject(r.error);});}
-function del(store,id){return new Promise((resolve,reject)=>{const r=tx(store,'readwrite').delete(id);r.onsuccess=resolve;r.onerror=()=>reject(r.error);});}
-async function seed(){const decks=await all('decks');if(decks.length)return;const d={id:uuid(),name:'Sample English',createdAt:Date.now()};await put('decks',d);for(const c of [
-{front:'to figure out',back:'to understand or solve something',example:'I need to figure out how this app works.',language:'en-US',tags:'English,phrasal verbs'},
-{front:'気になる（きになる）',back:'to be curious about; to bother or concern someone',example:'この言葉の意味が気になります。\\nI’m curious about the meaning of this word.',language:'ja-JP',tags:'Japanese,vocabulary'},
-{front:'consistent',back:'happening in the same way over time; steady',example:'A consistent study routine helps you remember words.',language:'en-US',tags:'English,adjective'}
-]){const createdAt=Date.now();await put('cards',{id:uuid(),deckId:d.id,...c,createdAt,due:createdAt,new:true,fsrsCard:createEmptyCard(new Date(createdAt)),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});}}
-async function refresh(){const [decks,cards,reviews]=await Promise.all([all('decks'),all('cards'),all('reviews')]);const todayReviews=reviews.filter(r=>new Date(r.at).toISOString().slice(0,10)===today()).length;$('dueCount').textContent=cards.filter(c=>getDueMs(c)<=Date.now()).length;$('newCount').textContent=cards.filter(c=>c.new).length;$('doneCount').textContent=todayReviews;fillDeckSelects(decks);renderDecks(decks,cards);await nextCard();}
+let dbOpenPromise=null;
+function openDB(){
+ if(db && db.objectStoreNames && db.objectStoreNames.length) return Promise.resolve(db);
+ if(dbOpenPromise) return dbOpenPromise;
+ dbOpenPromise=new Promise((resolve,reject)=>{
+  const req=indexedDB.open(DB_NAME,DB_VERSION);
+  req.onupgradeneeded=()=>{const d=req.result;for(const [name,keyPath] of [['decks','id'],['cards','id'],['reviews','id'],['meta','key']])if(!d.objectStoreNames.contains(name))d.createObjectStore(name,{keyPath});};
+  req.onsuccess=()=>{db=req.result;db.onversionchange=()=>{try{db.close();}catch(_){}db=null;};db.onclose=()=>{db=null;};resolve(db);};
+  req.onerror=()=>{db=null;reject(req.error);};
+  req.onblocked=()=>console.warn('IndexedDB open is blocked by another tab.');
+ }).finally(()=>{dbOpenPromise=null;});
+ return dbOpenPromise;
+}
+async function runStore(store,mode,action,retries=1){
+ try{
+  if(!db) await openDB();
+  const connection=db;
+  const result=await new Promise((resolve,reject)=>{
+   let transaction;
+   try{transaction=connection.transaction(store,mode);}catch(e){reject(e);return;}
+   let value;
+   transaction.oncomplete=()=>resolve(value);
+   transaction.onerror=()=>reject(transaction.error||new Error('IndexedDB transaction failed'));
+   transaction.onabort=()=>reject(transaction.error||new Error('IndexedDB transaction aborted'));
+   try{value=action(transaction.objectStore(store));}catch(e){try{transaction.abort();}catch(_){}reject(e);}
+  });
+  return result;
+ }catch(e){
+  const message=String(e&&e.message||e);
+  if(retries>0 && /closing|closed|InvalidStateError|transaction/i.test(message)){
+   try{if(db)db.close();}catch(_){}db=null;
+   await new Promise(resolve=>setTimeout(resolve,80));
+   await openDB();
+   return runStore(store,mode,action,retries-1);
+  }
+  throw e;
+ }
+}
+function all(store){return runStore(store,'readonly',os=>{const r=os.getAll();return new Promise((resolve,reject)=>{r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});});}
+function put(store,obj){return runStore(store,'readwrite',os=>os.put(obj)).then(()=>obj);}
+function clearStore(store){return runStore(store,'readwrite',os=>os.clear()).then(()=>undefined);}
+function del(store,id){return runStore(store,'readwrite',os=>os.delete(id)).then(()=>undefined);}
+function get(store,key){return runStore(store,'readonly',os=>{const r=os.get(key);return new Promise((resolve,reject)=>{r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});});}
+function validFSRSParams(saved){return !!(saved&&Array.isArray(saved.w)&&saved.w.length===21&&saved.w.every(Number.isFinite));}
+async function loadSchedulerSettings(){
+ const saved=await get('meta','fsrsParams');
+ if(validFSRSParams(saved)){
+  scheduler=fsrs({...SCHEDULER_OPTIONS,w:saved.w});
+  return saved;
+ }
+ scheduler=fsrs(SCHEDULER_OPTIONS);
+ return null;
+}
+async function seed(){
+ // Do not recreate sample cards on reload. A fresh app starts empty; users import their own cards.
+ return;
+}
+async function refresh(){const [decks,cards,reviews,meta]=await Promise.all([all('decks'),all('cards'),all('reviews'),all('meta')]);const todayReviews=reviews.filter(r=>new Date(r.at).toISOString().slice(0,10)===today()).length;$('dueCount').textContent=cards.filter(c=>getDueMs(c)<=Date.now()).length;$('newCount').textContent=cards.filter(c=>c.new).length;$('doneCount').textContent=todayReviews;fillDeckSelects(decks);renderDecks(decks,cards);updateFSRSStatus(reviews,meta.find(m=>m.key==='fsrsParams')||null);await nextCard();}
 function fillDeckSelects(decks){for(const id of ['studyDeck','addDeck']){const sel=$(id),old=sel.value;sel.innerHTML=id==='studyDeck'?'<option value="all">All decks</option>':'';decks.forEach(d=>{const o=document.createElement('option');o.value=d.id;o.textContent=d.name;sel.append(o)});if([...sel.options].some(o=>o.value===old))sel.value=old;}}
 function renderDecks(decks,cards){const list=$('deckList');list.innerHTML='';if(!decks.length){list.textContent='No decks yet.';return;}decks.forEach(d=>{const count=cards.filter(c=>c.deckId===d.id).length;const el=document.createElement('div');el.className='deck';const info=document.createElement('div');info.innerHTML='<strong></strong><small></small>';info.firstChild.textContent=d.name;info.lastChild.textContent=count+' cards';const btn=document.createElement('button');btn.textContent='Delete';btn.onclick=async()=>{if(!confirm('Delete deck and all its cards?'))return;for(const c of cards.filter(c=>c.deckId===d.id))await del('cards',c.id);await del('decks',d.id);await refresh();};el.append(info,btn);list.append(el);});}
 function hydrateFsrsCard(raw, createdAt=Date.now()){
@@ -201,11 +258,155 @@ $('downloadTemplate').onclick=()=>{const csv=[
 'Japanese N2,"気になる","to be curious about","この言葉が気になります。","ja-JP","vocabulary"'
 ].join('\\n')+'\\n';download('sample-cards.csv',csv,'text/csv;charset=utf-8');};
 function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-$('exportBackup').onclick=async()=>{const payload={app:'Lingua Cards',schemaVersion:1,exportedAt:new Date().toISOString(),decks:await all('decks'),cards:await all('cards'),reviews:await all('reviews')};download('lingua-cards-backup-'+today()+'.json',JSON.stringify(payload,null,2),'application/json');};
+function updateFSRSStatus(reviews, saved){
+ const goodLogs=Array.isArray(reviews)?reviews.filter(r=>Number.isFinite(Number(r.at))&&Number(r.grade)>=1&&Number(r.grade)<=4):[];
+ const cardsWithHistory=new Set(goodLogs.map(r=>r.cardId)).size;
+ const repeatedCards=new Set();
+ const counts=new Map();
+ for(const r of goodLogs)counts.set(r.cardId,(counts.get(r.cardId)||0)+1);
+ for(const [id,count] of counts)if(count>=2)repeatedCards.add(id);
+ let message=`Review history: ${goodLogs.length} ratings across ${cardsWithHistory} cards. `;
+ if(validFSRSParams(saved)){
+  message+=`Personalized parameters are active (optimized ${new Date(saved.optimizedAt).toLocaleString()}; used ${saved.reviewCount} ratings across ${saved.cardsUsed} cards). `;
+ }else{
+  message+='Default FSRS parameters are active. ';
+ }
+ if(goodLogs.length<MIN_OPTIMIZATION_REVIEWS||repeatedCards.size<10){
+  message+=`Collect more history before optimizing. The app requires at least ${MIN_OPTIMIZATION_REVIEWS} ratings and repeated reviews on at least 10 cards. Anki also warns that optimization from only a few hundred or fewer reviews may be unreliable.`;
+  $('optimizeFSRS').disabled=true;
+ }else if(!window.crossOriginIsolated){
+  message+='The browser has not enabled the isolation required by the local WebAssembly optimizer. Reload the app after its updated service worker activates; if this message remains, this browser/hosting context cannot run the optimizer yet.';
+  $('optimizeFSRS').disabled=true;
+ }else{
+  message+='The local optimizer is ready.';
+  $('optimizeFSRS').disabled=false;
+ }
+ $('fsrsStatus').textContent=message;
+ $('resetFSRS').disabled=!validFSRSParams(saved);
+}
+// wasm-bindgen-rayon normally expects its generated worker helper to be same-origin.
+// When its module is loaded from a CDN, bridge that worker through a same-origin Blob
+// module which imports the helper. Review data itself is never sent to the CDN.
+function installCdnWorkerBridge(){
+ const NativeWorker=window.Worker;
+ window.Worker=new Proxy(NativeWorker,{construct(target,args){
+  let workerUrl;
+  try{workerUrl=new URL(args[0] instanceof URL?args[0].href:String(args[0]),document.baseURI);}catch(_){return Reflect.construct(target,args,target);}
+  if(workerUrl.origin===location.origin||workerUrl.protocol!=='https:')return Reflect.construct(target,args,target);
+  const blobUrl=URL.createObjectURL(new Blob([`import ${JSON.stringify(workerUrl.href)};`],{type:'text/javascript'}));
+  const proxiedArgs=[...args];proxiedArgs[0]=blobUrl;
+  try{
+   const worker=Reflect.construct(target,proxiedArgs,target);
+   // The worker imports its actual CDN module during startup, so the temporary bootstrap
+   // URL can be revoked after startup has had time to complete.
+   setTimeout(()=>URL.revokeObjectURL(blobUrl),30000);
+   return worker;
+  }catch(error){URL.revokeObjectURL(blobUrl);throw error;}
+ }});
+ return ()=>{window.Worker=NativeWorker;};
+}
+function localDayNumber(ms){const d=new Date(ms);return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);}
+function makeOptimizerInput(reviews){
+ const perCard=new Map();
+ for(const r of reviews){
+  const at=Number(r.at),grade=Number(r.grade);
+  if(!r.cardId||!Number.isFinite(at)||![1,2,3,4].includes(grade))continue;
+  if(!perCard.has(r.cardId))perCard.set(r.cardId,[]);
+  perCard.get(r.cardId).push({at,grade});
+ }
+ const ratings=[],deltaTs=[],lengths=[];let cardsUsed=0;
+ for(const history of perCard.values()){
+  history.sort((a,b)=>a.at-b.at);
+  if(!history.length)continue;
+  // The official optimizer input uses whole elapsed days. First review starts at day 0.
+  let previousDay=localDayNumber(history[0].at);
+  for(let i=0;i<history.length;i++){
+   const review=history[i],day=localDayNumber(review.at);
+   const delta=i===0?0:Math.max(0,day-previousDay);
+   ratings.push(review.grade);deltaTs.push(delta);previousDay=day;
+  }
+  lengths.push(history.length);cardsUsed++;
+ }
+ return {ratings,deltaTs,lengths,cardsUsed};
+}
+$('optimizeFSRS').onclick=async()=>{
+ const btn=$('optimizeFSRS');
+ let restoreWorkerBridge=null;
+ btn.disabled=true;btn.textContent='Optimizing…';
+ try{
+  if(!window.crossOriginIsolated)throw new Error('This page is not cross-origin isolated. Please close and reopen the installed app after its service worker update, then try again.');
+  const reviews=await all('reviews');
+  const input=makeOptimizerInput(reviews);
+  if(input.ratings.length<MIN_OPTIMIZATION_REVIEWS||input.cardsUsed<10)throw new Error(`Not enough review history. Found ${input.ratings.length} ratings across ${input.cardsUsed} cards; build up at least ${MIN_OPTIMIZATION_REVIEWS} ratings first.`);
+  $('fsrsStatus').textContent=`Preparing the local optimizer with ${input.ratings.length} ratings across ${input.cardsUsed} cards. This may take a little time; your data stays on this device.`;
+  await new Promise(resolve=>setTimeout(resolve,80));
+  // Official FSRS browser/WASM optimizer; imported only when the user requests optimization.
+  const wasmModule=await import(`https://cdn.jsdelivr.net/npm/fsrs-browser@${OPTIMIZER_VERSION}/fsrs_browser.js`);
+  await wasmModule.default();
+  if(typeof wasmModule.initThreadPool==='function'){
+   restoreWorkerBridge=installCdnWorkerBridge();
+   const cores=Math.max(1,Math.min(4,Number(navigator.hardwareConcurrency)||2));
+   await wasmModule.initThreadPool(cores);
+   restoreWorkerBridge();restoreWorkerBridge=null;
+  }
+  const optimizer=new wasmModule.Fsrs();
+  const trained=optimizer.computeParameters(
+   Uint32Array.from(input.ratings),
+   Uint32Array.from(input.deltaTs),
+   Uint32Array.from(input.lengths),
+   undefined,
+   true,
+   undefined,
+   1,
+   undefined
+  );
+  const weights=Array.from(trained,Number);
+  if(weights.length!==21||!weights.every(Number.isFinite))throw new Error(`The optimizer returned an invalid parameter set (${weights.length} values). No settings were changed.`);
+  const saved={key:'fsrsParams',w:weights,optimizedAt:new Date().toISOString(),reviewCount:input.ratings.length,cardsUsed:input.cardsUsed,optimizerVersion:OPTIMIZER_VERSION};
+  // Persist parameters first. Existing cards and due dates are deliberately not rescheduled.
+  await put('meta',saved);
+  scheduler=fsrs({...SCHEDULER_OPTIONS,w:weights});
+  await refresh();
+  $('fsrsStatus').textContent=`Optimization complete. New FSRS parameters are active for future reviews. Used ${saved.reviewCount} ratings across ${saved.cardsUsed} cards. Existing due dates were not changed.`;
+  alert('FSRS parameters optimized and saved on this device. Existing due dates were left unchanged; future reviews will use the optimized parameters.');
+ }catch(e){
+  console.error('FSRS optimization failed',e);
+  $('fsrsStatus').textContent=`Optimization did not complete: ${e&&e.message?e.message:String(e)}`;
+  alert(`Could not optimize FSRS: ${e&&e.message?e.message:String(e)}`);
+ }finally{
+  if(restoreWorkerBridge){try{restoreWorkerBridge();}catch(_){}}
+  btn.textContent='Optimize FSRS parameters';
+  const saved=await get('meta','fsrsParams').catch(()=>null);
+  const reviews=await all('reviews').catch(()=>[]);
+  updateFSRSStatus(reviews,saved);
+ }
+};
+$('resetFSRS').onclick=async()=>{
+ if(!confirm('Return to the default FSRS parameters? Existing due dates and review history will remain unchanged.'))return;
+ await del('meta','fsrsParams');
+ scheduler=fsrs(SCHEDULER_OPTIONS);
+ await refresh();
+ $('fsrsStatus').textContent='Default FSRS parameters restored. Existing due dates were left unchanged.';
+};
+$('exportBackup').onclick=async()=>{const payload={app:'Lingua Cards',schemaVersion:2,exportedAt:new Date().toISOString(),decks:await all('decks'),cards:await all('cards'),reviews:await all('reviews'),meta:await all('meta')};download('lingua-cards-backup-'+today()+'.json',JSON.stringify(payload,null,2),'application/json');};
 $('backupFile').onchange=e=>{selectedBackup=e.target.files[0];$('restoreStatus').textContent=selectedBackup?selectedBackup.name+' selected. Restore will replace current data.':'No backup selected.';};
-$('restoreBtn').onclick=async()=>{if(!selectedBackup)return alert('Choose a JSON backup first.');if(!confirm('Replace all current decks, cards and review history with this backup?'))return;try{const p=JSON.parse(await selectedBackup.text());if(!Array.isArray(p.decks)||!Array.isArray(p.cards)||!Array.isArray(p.reviews))throw Error('Invalid backup format');for(const s of ['decks','cards','reviews'])await clearStore(s);for(const x of p.decks)await put('decks',x);for(const x of p.cards)await put('cards',x);for(const x of p.reviews)await put('reviews',x);await refresh();alert('Backup restored.');}catch(e){alert('Could not restore backup: '+e.message);}};
-$('clearData').onclick=async()=>{if(!confirm('Permanently delete all local decks, cards and review history? Export a backup first.'))return;for(const s of ['decks','cards','reviews','meta'])await clearStore(s);await seed();await refresh();alert('Local data deleted and sample cards re-created.');};
+$('restoreBtn').onclick=async()=>{if(!selectedBackup)return alert('Choose a JSON backup first.');if(!confirm('Replace all current decks, cards, review history and FSRS settings with this backup?'))return;try{const p=JSON.parse(await selectedBackup.text());if(!Array.isArray(p.decks)||!Array.isArray(p.cards)||!Array.isArray(p.reviews))throw Error('Invalid backup format');const meta=Array.isArray(p.meta)?p.meta:[];for(const x of p.decks)if(!x||typeof x.id!=='string')throw Error('Invalid deck record');for(const x of p.cards)if(!x||typeof x.id!=='string'||!x.deckId)throw Error('Invalid card record');for(const x of p.reviews)if(!x||typeof x.id!=='string')throw Error('Invalid review record');for(const store of ['decks','cards','reviews','meta'])await clearStore(store);for(const x of p.decks)await put('decks',x);for(const x of p.cards)await put('cards',x);for(const x of p.reviews)await put('reviews',x);for(const x of meta)await put('meta',x);await loadSchedulerSettings();await refresh();alert('Backup restored.');}catch(e){alert('Could not restore backup: '+e.message);}};
+$('clearData').onclick=async()=>{if(!confirm('Permanently delete all local decks, cards and review history? Export a backup first.'))return;for(const s of ['decks','cards','reviews','meta'])await clearStore(s);scheduler=fsrs(SCHEDULER_OPTIONS);await refresh();alert('All local data deleted. No sample cards were recreated.');};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));});
-(async()=>{try{db=await openDB();await seed();await refresh();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});}catch(e){$('front').textContent='Storage could not start: '+e.message;}})();
+function registerAppServiceWorker(){
+ if(!('serviceWorker'in navigator)||!location.protocol.startsWith('http'))return;
+ navigator.serviceWorker.register('./sw.js').then(()=>{
+  // The worker adds the isolation headers required by the official local WASM optimizer.
+  // Once the new worker takes control, reload exactly once so the document receives them.
+  if(!window.crossOriginIsolated&&!sessionStorage.getItem('lingua-isolation-reload-attempted-v6')){
+   navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(!window.crossOriginIsolated&&!sessionStorage.getItem('lingua-isolation-reload-attempted-v6')){
+     sessionStorage.setItem('lingua-isolation-reload-attempted-v6','1');location.reload();
+    }
+   },{once:true});
+  }
+ }).catch(err=>console.warn('Service worker registration failed',err));
+}
+(async()=>{try{db=await openDB();await seed();await loadSchedulerSettings();await refresh();registerAppServiceWorker();}catch(e){$('front').textContent='Storage could not start: '+e.message;}})();
 </script>
 </body></html>

@@ -1,49 +1,43 @@
-# Lingua Cards MVP (iPhone-first PWA)
+# Lingua Cards (local-first PWA)
 
-A local-first multilingual flashcard MVP. It is a web app/PWA, not a signed native iOS app. It can be opened on iPhone Safari after being hosted on HTTPS, then added to the Home Screen.
+A local-first flashcard PWA for iPhone Safari and desktop browsers. There is no app account, database server, or cloud sync. Decks, cards, review history, and optimized FSRS settings live in the browser's IndexedDB.
 
 ## Included
-- Flashcards and decks
-- Local IndexedDB storage
-- Four self-rating buttons (Again / Hard / Good / Easy)
-- Lightweight adaptive review scheduler
-- Speech synthesis using the browser/iOS voices
-- CSV/TSV import (Excel/Numbers: export as CSV UTF-8 first)
-- JSON backup and restore
-- Service worker cache for app assets; FSRS module is loaded from esm.sh
+- Decks, cards, and CSV/TSV import (duplicate card fronts in the same deck are skipped)
+- Four FSRS review ratings: Again / Hard / Good / Easy
+- Official `ts-fsrs@5.4.2` scheduling with a 90% desired retention and short learning steps (`1m`, `10m`; relearning `10m`)
+- **Optimize FSRS parameters** button using the official `fsrs-browser@6.6.0` WebAssembly optimizer
+- Local IndexedDB persistence, JSON backup/restore, speech synthesis, and service-worker caching
 
-## SRS implementation
-- Uses the official `ts-fsrs@5.4.2` package via an ES module from `esm.sh`.
-- Scheduler settings: request retention 0.90, fuzz enabled.
-- The package is fetched from a CDN, so the app needs internet on first load (and may need internet again if the module is not cached by the browser/service worker). Test offline behavior after first successful load.
-- This MVP does not optimize FSRS parameters from your review history; it uses the package defaults. It stores the scheduler card state with each flashcard and records review logs.
+## FSRS optimization
 
-## How to use with only an iPhone
-1. Put the contents of this folder on a static HTTPS host. A practical phone-only path is to create a GitHub repository in Safari and upload `index.html`, `manifest.webmanifest`, and `sw.js` using GitHub's web interface. `sample-cards.csv` is optional.
-2. In the repository settings, enable GitHub Pages for the main branch/root. Wait until the HTTPS site is published.
-3. Open the published URL in Safari on the iPhone.
-4. Tap Share -> Add to Home Screen -> Add.
-5. Open it from the Home Screen. Import `sample-cards.csv` or your own CSV.
-6. Export a JSON backup regularly.
+1. Use the app for a while and record a few hundred reviews. A card needs to be reviewed repeatedly for its history to be informative.
+2. Open the **FSRS** tab and choose **Optimize FSRS parameters**.
+3. The optimizer uses the stored per-card rating history and computes a personalized 21-value FSRS-6 parameter set in the browser.
+4. The parameters are stored locally in IndexedDB and used for future scheduling. Optimizing deliberately **does not immediately reschedule existing due dates**, so it does not unexpectedly flood your queue. Cards use the new parameters when you rate them next.
+5. Choose **Use default parameters** to revert. This does not delete reviews or cards.
 
-GitHub's UI can change. If uploading multiple files on iPhone is difficult, use a static hosting service with a browser-based upload flow.
+The app waits for at least 200 ratings and repeated reviews across at least 10 cards before enabling optimization. This threshold is a practical guard, not a guarantee that the result is statistically reliable; more diverse history generally gives the optimizer more information. Anki's manual similarly cautions that optimization on only a few hundred reviews may not be reliable and says monthly optimization is usually sufficient.
+
+### Browser requirements and privacy
+
+- The regular scheduler and study data remain local. Optimization is performed locally by WebAssembly; **review records are not sent to the optimizer CDN or to a server**.
+- The optimizer module is fetched from jsDelivr on first use, so Internet access is required to download that code and its WASM asset. After download, whether optimization works offline depends on browser caching.
+- The optimizer uses WebAssembly threads. On GitHub Pages, the service worker adds the Cross-Origin-Opener-Policy and Cross-Origin-Embedder-Policy headers needed by supported browsers and reloads once when the updated worker takes control. If the FSRS tab reports that cross-origin isolation is unavailable, close/reopen the app or reload after the service-worker update. Some browser/PWA configurations may not support this path; this must be confirmed on the actual target device.
+- I have checked JavaScript syntax, but have not run the optimizer on a real iPhone/Safari session. Treat the first optimization run as a test and export a JSON backup beforehand.
+
+## Hosting
+
+Host all files in this folder on HTTPS, for example GitHub Pages. Keep `index.html`, `sw.js`, `manifest.webmanifest`, and `sample-cards.csv` together in the deployed folder. After updating an existing deployment, open it online and reload once so the new service worker installs.
 
 ## CSV format
-Required headers: `front,back`. Optional: `deck,example,language,tags`.
-Header names are case-insensitive. Supported aliases include `question/term/word`, `answer/meaning/definition/translation`, `notes/reading/furigana`, and `lang/language_code`.
-For Excel `.xlsx`, open in Excel or Numbers and export the sheet to CSV UTF-8. Direct `.xlsx` parsing is not included.
 
-## Known limitations
-- No direct `.apkg` Anki import in this MVP.
-- No official FSRS implementation yet (see limitation above).
-- No image/audio file attachments on cards yet.
-- Data is local to the browser profile/site. Clearing website data can erase it; export backups.
-- The PWA must be hosted over HTTPS to install reliably and enable the service worker. FSRS is imported from esm.sh, so first load requires internet.
-- The web app is not currently a native `.ipa` and does not use Apple's native app signing.
+Required headers: `front,back`. Optional: `deck,example,language,tags`. Export Excel/Numbers sheets as CSV UTF-8. Existing cards are not overwritten by a duplicate import, so their review progress is retained.
 
-## Card reveal behavior
-- Tap “Show answer” or tap the card area to reveal the answer. The question side is hidden while the answer is shown. Tap “Show question” or tap the card to return to the prompt.
+## Backup
 
+Use **Export JSON backup** regularly. Version 2 backups include decks, cards, review logs, and personalized FSRS settings. Older version 1 backups can still be restored, but they do not contain optimized settings.
 
-## CSV sample fix
-The Download sample CSV button and bundled sample CSV have been fixed to use real line breaks. If already published on GitHub Pages, replace `index.html`, `sw.js`, and `sample-cards.csv`, then reload while online so the service worker refreshes.
+## Important limitation
+
+Browser-local data can be lost if Safari site data is cleared or the browser evicts storage. Keep a backup outside the app. This app does not sync review history across devices.
