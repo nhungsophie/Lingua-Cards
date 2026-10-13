@@ -4,6 +4,7 @@ A local-first flashcard PWA for iPhone Safari and desktop browsers. There is no 
 
 ## Included
 - Decks, cards, and CSV/TSV import (duplicate card fronts in the same deck are skipped)
+- Search across card front, meaning, romaji, examples, tags, language, and deck; filter results by deck
 - Four FSRS review ratings: Again / Hard / Good / Easy
 - Official `ts-fsrs@5.4.2` scheduling with a 90% desired retention and short learning steps (`1m`, `10m`; relearning `10m`)
 - **Optimize FSRS parameters** button using the official `fsrs-browser@6.6.0` WebAssembly optimizer
@@ -32,7 +33,7 @@ Host all files in this folder on HTTPS, for example GitHub Pages. Keep `index.ht
 
 ## CSV format
 
-Required headers: `front,back`. Optional: `deck,example,language,tags`. Export Excel/Numbers sheets as CSV UTF-8. Existing cards are not overwritten by a duplicate import, so their review progress is retained.
+Required headers: `front,back`. Optional: `deck,romaji,example,language,tags`. Export Excel/Numbers sheets as CSV UTF-8. Existing cards are not overwritten by a duplicate import, so their review progress is retained.
 
 ## Backup
 

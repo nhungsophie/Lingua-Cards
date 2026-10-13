@@ -13,14 +13,14 @@
 :root{--bg:#f7f4ed;--card:#fffefa;--ink:#202b36;--muted:#66717d;--line:#e6e0d5;--accent:#285d52;--soft:#e7f0eb;--red:#a63d40;--amber:#8a5a12}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 16px calc(18px + env(safe-area-inset-bottom));}
 header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;margin:0}header small{color:var(--muted)}main{max-width:760px;margin:auto}.tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}.tab,button,.file-label{border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14px;background:var(--card);color:var(--ink);font-weight:650;cursor:pointer}.tab.active,.primary{background:var(--accent);color:white;border-color:var(--accent)}button:disabled{opacity:.55;cursor:wait}.panel{display:none}.panel.active{display:block}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:6px 0 16px}.stat,.card,.section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}.card{cursor:pointer;min-height:270px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;margin-bottom:12px}.eyebrow{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.front{font-size:30px;font-weight:750;line-height:1.3;overflow-wrap:anywhere;margin:18px 0}.back{font-size:20px;animation:cardReveal .18s ease-out;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}@keyframes cardReveal{from{opacity:.35;transform:rotateY(12deg) translateY(3px)}to{opacity:1;transform:rotateY(0) translateY(0)}}
-.example{font-size:15px;color:var(--muted);white-space:pre-wrap;margin-top:12px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.actions button{padding:13px 3px}.actions small{display:block;font-size:11px;font-weight:500;margin-top:4px}.again{border-color:#e6b7b7;color:var(--red)}.hard{border-color:#e7cf9e;color:var(--amber)}.good{border-color:#b7d6c8;color:var(--accent)}.easy{border-color:#b9c9e8;color:#2b5591}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.section{margin-bottom:12px}.section h2{font-size:17px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px;line-height:1.45}input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit;color:var(--ink);margin:5px 0 10px}textarea{min-height:85px;resize:vertical}label{font-size:13px;font-weight:650;display:block}.list{display:flex;flex-direction:column;gap:8px}.deck{border:1px solid var(--line);border-radius:14px;padding:12px;background:white;display:flex;justify-content:space-between;gap:12px}.deck strong{display:block}.deck small{color:var(--muted)}.notice{background:var(--soft);border-radius:12px;padding:12px;font-size:13px;line-height:1.45;margin:10px 0}.danger{background:#f9e9e8}.hidden{display:none!important}.file-label{display:inline-block;text-align:center}.footer{font-size:11px;color:var(--muted);text-align:center;padding:18px 0}progress{width:100%;height:7px}a{color:var(--accent)}@media(min-width:600px){.front{font-size:38px}.card{min-height:320px}}
+.example{font-size:15px;color:var(--muted);white-space:pre-wrap;margin-top:12px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.actions button{padding:13px 3px}.actions small{display:block;font-size:11px;font-weight:500;margin-top:4px}.again{border-color:#e6b7b7;color:var(--red)}.hard{border-color:#e7cf9e;color:var(--amber)}.good{border-color:#b7d6c8;color:var(--accent)}.easy{border-color:#b9c9e8;color:#2b5591}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.section{margin-bottom:12px}.section h2{font-size:17px;margin:0 0 12px}.muted{color:var(--muted);font-size:13px;line-height:1.45}input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit;color:var(--ink);margin:5px 0 10px}textarea{min-height:85px;resize:vertical}label{font-size:13px;font-weight:650;display:block}.list{display:flex;flex-direction:column;gap:8px}.search-result{border:1px solid var(--line);border-radius:14px;padding:13px;background:white;display:block;width:100%;text-align:left;color:var(--ink)}.search-result strong{display:block;font-size:16px;overflow-wrap:anywhere}.search-result .result-back{display:block;color:var(--muted);margin-top:5px;white-space:pre-wrap;overflow-wrap:anywhere}.search-result small{display:block;color:var(--muted);margin-top:7px}.deck{border:1px solid var(--line);border-radius:14px;padding:12px;background:white;display:flex;justify-content:space-between;gap:12px}.deck strong{display:block}.deck small{color:var(--muted)}.notice{background:var(--soft);border-radius:12px;padding:12px;font-size:13px;line-height:1.45;margin:10px 0}.danger{background:#f9e9e8}.hidden{display:none!important}.file-label{display:inline-block;text-align:center}.footer{font-size:11px;color:var(--muted);text-align:center;padding:18px 0}progress{width:100%;height:7px}a{color:var(--accent)}@media(min-width:600px){.front{font-size:38px}.card{min-height:320px}}
 </style>
 </head>
 <body>
 <header><div><h1>Lingua Cards</h1><small>Offline-first flashcards</small></div><button id="speakTop" title="Speak current card">🔊</button></header>
 <main>
 <nav class="tabs">
-<button class="tab active" data-tab="study">Study</button><button class="tab" data-tab="decks">Decks</button><button class="tab" data-tab="import">Import</button><button class="tab" data-tab="settings">FSRS</button><button class="tab" data-tab="backup">Backup</button>
+<button class="tab active" data-tab="study">Study</button><button class="tab" data-tab="search">Search</button><button class="tab" data-tab="decks">Decks</button><button class="tab" data-tab="import">Import</button><button class="tab" data-tab="settings">FSRS</button><button class="tab" data-tab="backup">Backup</button>
 </nav>
 <section class="panel active" id="study">
 <div class="stats"><div class="stat"><strong id="dueCount">0</strong><span>Due now</span></div><div class="stat"><strong id="newCount">0</strong><span>New cards</span></div><div class="stat"><strong id="doneCount">0</strong><span>Reviewed today</span></div></div>
@@ -30,6 +30,14 @@ header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-co
 <button class="again" data-grade="1">Again<small id="againTime">relearn</small></button><button class="hard" data-grade="2">Hard<small id="hardTime">short</small></button><button class="good" data-grade="3">Good<small id="goodTime">normal</small></button><button class="easy" data-grade="4">Easy<small id="easyTime">long</small></button>
 </div><p class="muted" id="studyHint">The official ts-fsrs scheduler (v5.4.2) calculates review intervals. Cards and progress are stored in this browser on this iPhone. Export a backup before clearing browser data.</p>
 </section>
+<section class="panel" id="search">
+<div class="section"><h2>Search vocabulary</h2><p class="muted">Search across Japanese/English text, meaning, romaji, examples, tags and language. Search stays on this device.</p>
+<label for="searchInput">Keyword</label><input id="searchInput" type="search" placeholder="Type a word, meaning, romaji…" autocomplete="off">
+<label for="searchDeck">Deck</label><select id="searchDeck"><option value="all">All decks</option></select>
+<p id="searchStatus" class="muted" aria-live="polite">Enter a keyword to search your cards.</p><div id="searchResults" class="list"></div>
+</div>
+<div class="section hidden" id="searchDetail"><h2>Card details</h2><div class="eyebrow" id="detailDeck"></div><h3 id="detailFront"></h3><p id="detailRomaji" class="muted"></p><p id="detailBack"></p><p id="detailExample" class="muted"></p><p id="detailTags" class="muted"></p><button id="closeSearchDetail">Close details</button></div>
+</section>
 <section class="panel" id="decks">
 <div class="section"><h2>Create a deck</h2><label>Deck name</label><input id="deckName" placeholder="e.g. English B1, Japanese N2"><button class="primary" id="createDeck">Create deck</button></div>
 <div class="section"><h2>Your decks</h2><div id="deckList" class="list"></div></div>
@@ -37,7 +45,7 @@ header{max-width:760px;margin:0 auto;padding:16px 0 10px;display:flex;justify-co
 </section>
 <section class="panel" id="import">
 <div class="section"><h2>Import CSV / TSV</h2><p class="muted">Prepare a CSV file in Excel or Numbers, export it as CSV UTF-8, then select it here. TSV (tab-separated) is also supported. The first row should contain headers.</p>
-<div class="notice"><strong>Recommended columns:</strong><br>deck, front, back, example, language, tags<br><br>Required: <code>front</code> and <code>back</code>. Column names are case-insensitive. If <code>deck</code> is missing, cards go into “Imported”.</div>
+<div class="notice"><strong>Recommended columns:</strong><br>deck, front, back, romaji, example, language, tags<br><br>Required: <code>front</code> and <code>back</code>. Column names are case-insensitive. If <code>deck</code> is missing, cards go into “Imported”.</div>
 <label class="file-label">Choose CSV / TSV file<input id="csvFile" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values" style="display:none"></label>
 <p id="importStatus" class="muted">No file selected.</p><button id="downloadTemplate">Download sample CSV</button>
 </div>
@@ -126,9 +134,43 @@ async function seed(){
  // Do not recreate sample cards on reload. A fresh app starts empty; users import their own cards.
  return;
 }
-async function refresh(){const [decks,cards,reviews,meta]=await Promise.all([all('decks'),all('cards'),all('reviews'),all('meta')]);const todayReviews=reviews.filter(r=>new Date(r.at).toISOString().slice(0,10)===today()).length;$('dueCount').textContent=cards.filter(c=>getDueMs(c)<=Date.now()).length;$('newCount').textContent=cards.filter(c=>c.new).length;$('doneCount').textContent=todayReviews;fillDeckSelects(decks);renderDecks(decks,cards);updateFSRSStatus(reviews,meta.find(m=>m.key==='fsrsParams')||null);await nextCard();}
-function fillDeckSelects(decks){for(const id of ['studyDeck','addDeck']){const sel=$(id),old=sel.value;sel.innerHTML=id==='studyDeck'?'<option value="all">All decks</option>':'';decks.forEach(d=>{const o=document.createElement('option');o.value=d.id;o.textContent=d.name;sel.append(o)});if([...sel.options].some(o=>o.value===old))sel.value=old;}}
+async function refresh(){const [decks,cards,reviews,meta]=await Promise.all([all('decks'),all('cards'),all('reviews'),all('meta')]);const todayReviews=reviews.filter(r=>new Date(r.at).toISOString().slice(0,10)===today()).length;$('dueCount').textContent=cards.filter(c=>getDueMs(c)<=Date.now()).length;$('newCount').textContent=cards.filter(c=>c.new).length;$('doneCount').textContent=todayReviews;fillDeckSelects(decks);renderDecks(decks,cards);renderSearchResults();updateFSRSStatus(reviews,meta.find(m=>m.key==='fsrsParams')||null);await nextCard();}
+function fillDeckSelects(decks){for(const id of ['studyDeck','addDeck','searchDeck']){const sel=$(id),old=sel.value;sel.innerHTML=(id==='studyDeck'||id==='searchDeck')?'<option value="all">All decks</option>':'';decks.forEach(d=>{const o=document.createElement('option');o.value=d.id;o.textContent=d.name;sel.append(o)});if([...sel.options].some(o=>o.value===old))sel.value=old;}}
 function renderDecks(decks,cards){const list=$('deckList');list.innerHTML='';if(!decks.length){list.textContent='No decks yet.';return;}decks.forEach(d=>{const count=cards.filter(c=>c.deckId===d.id).length;const el=document.createElement('div');el.className='deck';const info=document.createElement('div');info.innerHTML='<strong></strong><small></small>';info.firstChild.textContent=d.name;info.lastChild.textContent=count+' cards';const btn=document.createElement('button');btn.textContent='Delete';btn.onclick=async()=>{if(!confirm('Delete deck and all its cards?'))return;for(const c of cards.filter(c=>c.deckId===d.id))await del('cards',c.id);await del('decks',d.id);await refresh();};el.append(info,btn);list.append(el);});}
+function normalizeSearch(value){return String(value??'').normalize('NFKC').toLocaleLowerCase().trim();}
+async function renderSearchResults(){
+ const box=$('searchResults');if(!box)return;
+ const query=normalizeSearch($('searchInput').value);const deckFilter=$('searchDeck').value;
+ const [cards,decks]=await Promise.all([all('cards'),all('decks')]);
+ const deckNames=new Map(decks.map(d=>[d.id,d.name]));
+ const terms=query.split(/\s+/).filter(Boolean);
+ const matches=cards.filter(c=>{
+  if(deckFilter!=='all'&&c.deckId!==deckFilter)return false;
+  const haystack=normalizeSearch([c.front,c.back,c.romaji,c.example,c.language,c.tags,deckNames.get(c.deckId)].join(' '));
+  return terms.every(t=>haystack.includes(t));
+ }).sort((a,b)=>String(a.front).localeCompare(String(b.front)));
+ box.innerHTML='';
+ $('searchStatus').textContent=query?`${matches.length} result${matches.length===1?'':'s'}`:`${cards.length} cards total. Enter a keyword to search.`;
+ if(!query){return;}
+ if(!matches.length){box.textContent='No matching cards found.';return;}
+ const fragment=document.createDocumentFragment();
+ for(const c of matches.slice(0,200)){
+  const btn=document.createElement('button');btn.type='button';btn.className='search-result';
+  const front=document.createElement('strong');front.textContent=c.front||'';btn.append(front);
+  const back=document.createElement('span');back.className='result-back';back.textContent=c.back||'';btn.append(back);
+  const meta=document.createElement('small');meta.textContent=[deckNames.get(c.deckId)||'Deck',c.romaji||'',c.tags||''].filter(Boolean).join(' · ');btn.append(meta);
+  btn.addEventListener('click',()=>showSearchDetail(c,deckNames.get(c.deckId)||'Deck'));
+  fragment.append(btn);
+ }
+ box.append(fragment);
+ if(matches.length>200){const more=document.createElement('p');more.className='muted';more.textContent='Showing first 200 results. Add more keywords to narrow the search.';box.append(more);}
+}
+function showSearchDetail(card,deckName){
+ $('detailDeck').textContent=deckName;$('detailFront').textContent=card.front||'';$('detailRomaji').textContent=card.romaji?'Romaji: '+card.romaji:'';$('detailBack').textContent=card.back||'';$('detailExample').textContent=card.example?'Example: '+card.example:'';$('detailTags').textContent=card.tags?'Tags: '+card.tags:'';$('searchDetail').classList.remove('hidden');
+}
+$('searchInput').addEventListener('input',renderSearchResults);
+$('searchDeck').addEventListener('change',renderSearchResults);
+$('closeSearchDetail').addEventListener('click',()=>$('searchDetail').classList.add('hidden'));
 function hydrateFsrsCard(raw, createdAt=Date.now()){
  if(!raw) return createEmptyCard(new Date(createdAt));
  const c={...raw};
@@ -244,7 +286,7 @@ async function importCsv(){
   const duplicateKey=deck.id+'::'+normalizeFrontForDuplicateCheck(front);
   if(seen.has(duplicateKey)){skipped++;continue;}
   const createdAt=Date.now();
-  await put('cards',{id:uuid(),deckId:deck.id,front,back,example:(r[idx('example','notes','reading','furigana')]||'').trim(),language:(r[idx('language','lang','language_code')]||guessLang(front)).trim(),tags:(r[idx('tags','tag')]||'').trim(),createdAt,due:createdAt,new:true,fsrsCard:createEmptyCard(new Date(createdAt)),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});
+  await put('cards',{id:uuid(),deckId:deck.id,front,back,romaji:(r[idx('romaji','romanji','romanization','pronunciation')]||'').trim(),example:(r[idx('example','notes','reading','furigana')]||'').trim(),language:(r[idx('language','lang','language_code')]||guessLang(front)).trim(),tags:(r[idx('tags','tag')]||'').trim(),createdAt,due:createdAt,new:true,fsrsCard:createEmptyCard(new Date(createdAt)),stability:0,difficulty:5,reps:0,lapses:0,lastReview:null});
   seen.add(duplicateKey);count++;
  }
  await refresh();
